@@ -1,12 +1,12 @@
 package jm.task.core.jdbc.model;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+@Entity
 @Table
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO) // автогенерация ID (который создается при создании таблицы MySQL)
     private Long id;
 
     @Column
