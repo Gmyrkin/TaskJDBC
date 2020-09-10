@@ -21,12 +21,32 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void createUsersTable() {
-
+        Session session = sessionFactory.openSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+            session.createSQLQuery("CREATE TABLE IF NOT EXISTS user" +
+                            "(id int auto_increment primary key," +
+                            "name varchar (64), " +
+                            "lastname varchar (64), " +
+                            "age int)")
+                    .executeUpdate();
+            transaction.commit(); // завершение транзакции
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public void dropUsersTable() {
-
+        Session session = sessionFactory.openSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+            session.createSQLQuery("DROP TABLE IF EXISTS user")
+                    .executeUpdate();
+            transaction.commit(); // завершение транзакции
+        } finally {
+            session.close();
+        }
     }
 
     @Override
